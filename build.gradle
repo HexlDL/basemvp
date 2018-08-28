@@ -1,0 +1,105 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+//    api files('libs/Base64.jar')
+
+    //基本依赖包.
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+
+    //插件化
+    api rootProject.ext.dependencies["multidex"]
+
+    //OkHttp
+    api(rootProject.ext.dependencies["okhttp3"]) {
+        exclude module: 'okio'
+    }
+
+    //拦截器
+    api(rootProject.ext.dependencies["okhttp3-logging-interceptor"]) {
+        exclude module: 'okhttp'
+    }
+
+    //Retrofit
+    api(rootProject.ext.dependencies["retrofit-converter-gson"]) {
+        exclude module: 'retrofit'
+        exclude module: 'gson'
+    }
+    api(rootProject.ext.dependencies["retrofit"]) {
+//        exclude group:'com.squareup.okhttp3'
+    }
+
+    //RxJava
+    api(rootProject.ext.dependencies["rxjava2"]) {
+//        exclude group: 'com.android.support'
+    }
+    api(rootProject.ext.dependencies["retrofit-adapter-rxjava2"]) {
+        exclude module: 'retrofit'
+        exclude module: 'rxjava'
+    }
+
+    //RxAndroid
+    api(rootProject.ext.dependencies["rxandroid2"]) {
+        exclude module: 'rxjava'
+    }
+
+    //RxPermissions
+    api rootProject.ext.dependencies["rxpermissions2"]
+
+    //Rx生命周期管理
+    api(rootProject.ext.dependencies["rxlifecycle2"]) {
+//        exclude module: 'rxjava'
+    }
+    api(rootProject.ext.dependencies["rxlifecycle2-components"]) {
+        exclude module: 'appcompat-v7'
+    }
+
+    //Dagger2
+    api(rootProject.ext.dependencies["dagger2"]) {
+//        exclude module: 'javax.inject'
+    }
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    compileOnly rootProject.ext.dependencies["javax-annotation"]
+
+    //ButterKnife
+    api(rootProject.ext.dependencies["butterknife"]) {
+        exclude module: 'support-annotations'
+    }
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
+    //Glide
+    api(rootProject.ext.dependencies["glide"]) {
+        exclude module: 'gifdecoder'
+        exclude module: 'disklrucache'
+    }
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+
+    //Gson
+    api rootProject.ext.dependencies["gson"]
+
+    //EventBus
+    api rootProject.ext.dependencies["eventBus"]
+
+    //状态栏
+    api(rootProject.ext.dependencies["statusbar"]) {
+        exclude module: 'design'
+    }
+
+}
